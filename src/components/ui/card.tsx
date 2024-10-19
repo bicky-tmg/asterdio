@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import Button from "./button";
 
-//   border: 1px solid #c3c9d5;
 const CardWrapper = styled.div`
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
@@ -11,6 +11,8 @@ const CardWrapper = styled.div`
   padding: 0.75rem;
   border-radius: 0.5rem;
   background-color: #ffffffb3;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CardImageWrapper = styled.div`
@@ -34,10 +36,9 @@ const CardImage = styled.img.attrs((props) => ({
 
 const CardInfoWrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  margin-top: auto;
 `;
-//   margin-bottom: 0.5rem;
 
 const Title = styled.h3`
   font-size: 0.875rem;
@@ -47,17 +48,10 @@ const Title = styled.h3`
 `;
 
 const Price = styled.div`
-  font-size: 1.25rem;
+  font-size: 1rem;
   line-height: 1.875rem;
   font-weight: 700;
 `;
-
-// const Category = styled.p`
-//   font-size: 0.875rem;
-//   line-height: 1.25rem;
-//   font-weight: 400;
-//   color: #0007149f;
-// `;
 
 interface ICard {
   imgSrc: string;
@@ -73,9 +67,8 @@ export default function Card({ imgSrc, title, price }: ICard) {
       </CardImageWrapper>
       <Title>{title}</Title>
       <CardInfoWrapper>
-        {/* <Category>men's clothing</Category> */}
-
         <Price>${price}</Price>
+        <Button>View Details</Button>
       </CardInfoWrapper>
     </CardWrapper>
   );
