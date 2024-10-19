@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import styled from "styled-components";
+import RootLayout from "./components/layout/RootLayout";
+import { GlobalStyle } from "./components/styles/globalStyle";
+import Card from "./components/ui/card";
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <RootLayout>
+      <GlobalStyle />
+      <h1>Root page</h1>
+      <GridContainer>
+        <Card
+          imgSrc="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+          title="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
+          price={109.95}
+        />
+        <Card
+          imgSrc="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+          title="Mens Casual Premium Slim Fit T-Shirts "
+          price={22.3}
+        />
+      </GridContainer>
+    </RootLayout>
+  );
 }
 
-export default App
+export default App;
