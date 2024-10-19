@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ButtonWrapper = styled.button`
+export const ButtonWrapper = styled.button`
   font-family: inherit;
   padding: 0 0.75rem;
   font-weight: 500;
@@ -14,16 +14,17 @@ const ButtonWrapper = styled.button`
   justify-content: center;
   border: 0;
   transition: background-color 0.3s, transform 0.2s, filter 0.3s;
+  height: 2.25rem;
 
   &:hover {
     filter: contrast(0.88) saturate(1.1) brightness(1.1);
   }
 `;
 
-interface IButton {
+interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export default function Button({ children }: IButton) {
-  return <ButtonWrapper>{children}</ButtonWrapper>;
+export default function Button({ children, ...props }: IButton) {
+  return <ButtonWrapper {...props}>{children}</ButtonWrapper>;
 }

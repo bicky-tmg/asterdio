@@ -2,11 +2,8 @@ import styled from "styled-components";
 import Button from "./button";
 
 const CardWrapper = styled.div`
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
-    0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
   border: 1px solid #e2e8f0;
   padding: 0.75rem;
   border-radius: 0.5rem;
@@ -37,6 +34,7 @@ const CardImage = styled.img.attrs((props) => ({
 const CardInfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: auto;
 `;
 
@@ -57,9 +55,15 @@ interface ICard {
   imgSrc: string;
   title: string;
   price: number;
+  handleDialogOpen: (state: boolean) => void;
 }
 
-export default function Card({ imgSrc, title, price }: ICard) {
+export default function Card({
+  imgSrc,
+  title,
+  price,
+  handleDialogOpen,
+}: ICard) {
   return (
     <CardWrapper>
       <CardImageWrapper>
@@ -68,7 +72,7 @@ export default function Card({ imgSrc, title, price }: ICard) {
       <Title>{title}</Title>
       <CardInfoWrapper>
         <Price>${price}</Price>
-        <Button>View Details</Button>
+        <Button onClick={() => handleDialogOpen(true)}>View Details</Button>
       </CardInfoWrapper>
     </CardWrapper>
   );

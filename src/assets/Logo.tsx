@@ -10,7 +10,7 @@ export function Logo(props: ComponentProps<"svg">) {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_1113_4725)">
+      <g clipPath="url(#clip0_1113_4725)">
         <path
           d="M136 36C136 55.8823 119.882 72 100 72C80.1178 72 64 55.8823 64 36C64 16.1177 80.1178 0 100 0C119.882 0 136 16.1177 136 36Z"
           fill="black"
