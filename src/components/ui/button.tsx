@@ -21,10 +21,10 @@ export const ButtonWrapper = styled.button`
   }
 `;
 
-interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export default function Button({ children, ...props }: IButton) {
+export default function Button({ children, ...props }: IButtonProps) {
   return <ButtonWrapper {...props}>{children}</ButtonWrapper>;
 }

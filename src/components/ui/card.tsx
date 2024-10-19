@@ -51,11 +51,11 @@ const Price = styled.div`
   font-weight: 700;
 `;
 
-interface ICard {
+interface ICardProps {
   imgSrc: string;
   title: string;
   price: number;
-  handleDialogOpen: (state: boolean) => void;
+  handleDialogOpen: () => void;
 }
 
 export default function Card({
@@ -63,7 +63,7 @@ export default function Card({
   title,
   price,
   handleDialogOpen,
-}: ICard) {
+}: ICardProps) {
   return (
     <CardWrapper>
       <CardImageWrapper>
@@ -72,7 +72,7 @@ export default function Card({
       <Title>{title}</Title>
       <CardInfoWrapper>
         <Price>${price}</Price>
-        <Button onClick={() => handleDialogOpen(true)}>View Details</Button>
+        <Button onClick={handleDialogOpen}>View Details</Button>
       </CardInfoWrapper>
     </CardWrapper>
   );

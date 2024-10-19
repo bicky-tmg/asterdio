@@ -4,7 +4,8 @@ import { GlobalStyle } from "./components/styles/globalStyle";
 import Card from "./components/ui/card";
 import { SectionTitle } from "./components/styles/sectionTitle";
 import Dialog from "./components/ui/dialog";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { IProduct, Products } from "./types/Product";
 
 const GridContainer = styled.div`
   display: grid;
@@ -26,6 +27,26 @@ const GridContainer = styled.div`
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [products, setProducts] = useState<Products | null>(null);
+  const productDetailRef = useRef<IProduct | null>(null);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const result = await response.json();
+        setProducts(result);
+      } catch (error: unknown) {
+        console.error(error);
+      }
+    };
+
+    getProducts();
+  }, []);
 
   const handleDialogOpen = useCallback((state: boolean) => {
     setIsOpen(state);
@@ -34,21 +55,24 @@ function App() {
   return (
     <RootLayout>
       <GlobalStyle />
-      <Dialog isOpen={isOpen} handleDialogOpen={handleDialogOpen} />
+      <Dialog
+        isOpen={isOpen}
+        handleDialogOpen={handleDialogOpen}
+        productDetail={productDetailRef.current}
+      />
       <SectionTitle>All Products</SectionTitle>
       <GridContainer>
-        <Card
-          imgSrc="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-          title="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
-          price={109.95}
-          handleDialogOpen={handleDialogOpen}
-        />
-        <Card
-          imgSrc="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
-          title="Mens Casual Premium Slim Fit T-Shirts "
-          price={22.3}
-          handleDialogOpen={handleDialogOpen}
-        />
+        {products?.map((product) => (
+          <Card
+            imgSrc={product.image}
+            title={product.title}
+            price={product.price}
+            handleDialogOpen={() => {
+              productDetailRef.current = product;
+              handleDialogOpen(true);
+            }}
+          />
+        ))}
       </GridContainer>
     </RootLayout>
   );

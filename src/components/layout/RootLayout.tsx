@@ -1,11 +1,11 @@
 import Header from "../ui/header";
 import { MainContainer as Container } from "../styles/container";
 
-interface IRootLayout {
+interface IRootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: IRootLayout) {
+export default function RootLayout({ children }: IRootLayoutProps) {
   return (
     <>
       <Header />

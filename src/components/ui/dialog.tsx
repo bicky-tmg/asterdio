@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button, { ButtonWrapper } from "./button";
+import { IProduct } from "../../types/Product";
 
 const Overlay = styled.div`
   position: fixed;
@@ -48,11 +49,9 @@ const DialogImage = styled.img.attrs((props) => ({
   height: 270,
 }))`
   border-radius: 3px;
-  object-fit: cover;
-  object-position: top;
-  width: 100%;
+  object-fit: contain;
+  object-position: center;
   height: 350px;
-  flex: 1 1 0%;
 `;
 
 const DialogContent = styled.div`
@@ -104,12 +103,17 @@ const QuantityBtn = styled(ButtonWrapper)`
   color: inherit;
 `;
 
-interface IDialog {
+interface IDialogProps {
   isOpen: boolean;
   handleDialogOpen: (state: boolean) => void;
+  productDetail: IProduct | null;
 }
 
-export default function Dialog({ isOpen, handleDialogOpen }: IDialog) {
+export default function Dialog({
+  isOpen,
+  handleDialogOpen,
+  productDetail,
+}: IDialogProps) {
   if (!isOpen) return null;
 
   return (
@@ -118,14 +122,11 @@ export default function Dialog({ isOpen, handleDialogOpen }: IDialog) {
       <DialogContainer>
         <CloseButton onClick={() => handleDialogOpen(false)}>X</CloseButton>
         <DialogContent>
-          <DialogImage src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
+          <DialogImage src={productDetail?.image} />
           <DialogDescription>
-            <Title>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</Title>
-            <Description>
-              Your perfect pack for everyday use and walks in the forest. Stash
-              your laptop (up to 15 inches) in the padded sleeve, your everyday
-            </Description>
-            <Price>$109.98</Price>
+            <Title>{productDetail?.title}</Title>
+            <Description>{productDetail?.description}</Description>
+            <Price>${productDetail?.price}</Price>
             <CtaWrapper>
               <QuantityWrapper>
                 <QuantityBtn>-</QuantityBtn>
