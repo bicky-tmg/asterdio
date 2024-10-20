@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CardWrapper } from "./card";
 import { useFavoriteStore } from "../../store/useFavoriteStore";
 import { CloseButton } from "./dialog";
+import { ScrollArea } from "../styles/scrollArea";
 
 const DropdownContainer = styled(CardWrapper)`
   padding: 6px;
@@ -92,23 +93,25 @@ export default function Dropdown() {
         <span>{favoriteProducts.length > 0 && favoriteProducts.length}</span>
       </DropdownHeader>
       <DropdownSeperator />
-      <DropdownContent>
-        {favoriteProducts.length > 0 ? (
-          favoriteProducts.map((favProduct) => (
-            <FavoriteCard>
-              <FavoriteClosebutton
-                onClick={() => deleteFavorite(favProduct.id)}
-              >
-                X
-              </FavoriteClosebutton>
-              <FavoriteImage src={favProduct.image} alt={favProduct.title} />
-              <FavoriteTitle>{favProduct.title}</FavoriteTitle>
-            </FavoriteCard>
-          ))
-        ) : (
-          <NoDataText>No favorites yet.</NoDataText>
-        )}
-      </DropdownContent>
+      <ScrollArea>
+        <DropdownContent>
+          {favoriteProducts.length > 0 ? (
+            favoriteProducts.map((favProduct) => (
+              <FavoriteCard>
+                <FavoriteClosebutton
+                  onClick={() => deleteFavorite(favProduct.id)}
+                >
+                  X
+                </FavoriteClosebutton>
+                <FavoriteImage src={favProduct.image} alt={favProduct.title} />
+                <FavoriteTitle>{favProduct.title}</FavoriteTitle>
+              </FavoriteCard>
+            ))
+          ) : (
+            <NoDataText>No favorites yet.</NoDataText>
+          )}
+        </DropdownContent>
+      </ScrollArea>
     </DropdownContainer>
   );
 }
