@@ -4,7 +4,7 @@ import Heart from "../../assets/Heart";
 import { useEffect, useState } from "react";
 import { useFavoriteStore } from "../../store/useFavoriteStore";
 
-const CardWrapper = styled.div`
+export const CardWrapper = styled.div`
   box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1),
     0 2px 4px -2px rgb(0 0 0 / 0.1);
   border: 1px solid #e2e8f0;

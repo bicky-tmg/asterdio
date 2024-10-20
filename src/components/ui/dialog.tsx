@@ -30,7 +30,7 @@ const DialogContainer = styled.div`
     0 4px 6px -4px rgb(0 0 0 / 0.1);
 `;
 
-const CloseButton = styled.button`
+export const CloseButton = styled.button`
   position: absolute;
   top: 1rem;
   right: 1rem;

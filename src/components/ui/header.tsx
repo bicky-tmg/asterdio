@@ -4,6 +4,8 @@ import { Logo } from "../../assets/Logo";
 import { ButtonWrapper } from "./button";
 import Heart from "../../assets/Heart";
 import { useFavoriteStore } from "../../store/useFavoriteStore";
+import Dropdown from "./dropdown";
+import { useEffect, useRef, useState } from "react";
 
 const HeaderComp = styled.header`
   position: sticky;
@@ -33,6 +35,7 @@ const NavList = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 const FavoriteItem = styled(ButtonWrapper)`
@@ -43,15 +46,39 @@ const FavoriteItem = styled(ButtonWrapper)`
 `;
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
   const { favoriteProducts } = useFavoriteStore();
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent): void => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <HeaderComp>
       <NavWrapper>
         <LogoWrapper>
           <Logo width="100%" height="100%" />
         </LogoWrapper>
-        <NavList>
-          <FavoriteItem>
+        <NavList ref={dropdownRef}>
+          <FavoriteItem
+            onClick={() => {
+              setIsOpen((prev) => !prev);
+            }}
+          >
             <Heart
               fill={favoriteProducts.length > 0 ? "#e11d48" : "none"}
               strokeWidth={favoriteProducts.length > 0 ? 0 : 2}
@@ -59,6 +86,7 @@ export default function Header() {
               height={20}
             />
           </FavoriteItem>
+          {isOpen ? <Dropdown /> : null}
         </NavList>
       </NavWrapper>
     </HeaderComp>

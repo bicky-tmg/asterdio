@@ -5,7 +5,7 @@ import Card from "./components/ui/card";
 import { SectionTitle } from "./components/styles/sectionTitle";
 import Dialog from "./components/ui/dialog";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { IProduct, Products } from "./types/Product";
+import { IProduct, Products } from "./types/product";
 
 const GridContainer = styled.div`
   display: grid;
