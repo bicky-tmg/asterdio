@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import Button from "./button";
+import Heart from "../../assets/Heart";
+import { useEffect, useState } from "react";
+import { useFavoriteStore } from "../../store/useFavoriteStore";
 
 const CardWrapper = styled.div`
   box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1),
@@ -10,6 +13,7 @@ const CardWrapper = styled.div`
   background-color: #ffffffb3;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const CardImageWrapper = styled.div`
@@ -51,7 +55,21 @@ const Price = styled.div`
   font-weight: 700;
 `;
 
+const Favorite = styled.span`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.5rem;
+  background-color: #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
 interface ICardProps {
+  id: number;
   imgSrc: string;
   title: string;
   price: number;
@@ -59,13 +77,42 @@ interface ICardProps {
 }
 
 export default function Card({
+  id,
   imgSrc,
   title,
   price,
   handleDialogOpen,
 }: ICardProps) {
+  const [favoriteActive, setFavoriteActive] = useState(false);
+  const { favoriteProducts, addFavorite, deleteFavorite } = useFavoriteStore();
+
+  useEffect(() => {
+    favoriteProducts.some((fav) => fav?.id === id)
+      ? setFavoriteActive(true)
+      : setFavoriteActive(false);
+  }, [favoriteProducts, id]);
+
   return (
     <CardWrapper>
+      <Favorite
+        onClick={() => {
+          setFavoriteActive((prev) => !prev);
+          favoriteActive
+            ? deleteFavorite(id)
+            : addFavorite({
+                id,
+                title,
+                image: imgSrc,
+              });
+        }}
+      >
+        <Heart
+          fill={favoriteActive ? "#e11d48" : "none"}
+          strokeWidth={favoriteActive ? 0 : 2}
+          width={18}
+          height={18}
+        />
+      </Favorite>
       <CardImageWrapper>
         <CardImage src={imgSrc} alt={title} />
       </CardImageWrapper>
