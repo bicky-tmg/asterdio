@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button, { ButtonWrapper } from "./button";
 import { IProduct } from "../../types/product";
+import { useState } from "react";
 
 const Overlay = styled.div`
   position: fixed;
@@ -103,6 +104,13 @@ const QuantityBtn = styled(ButtonWrapper)`
   color: inherit;
 `;
 
+const QuantityAmount = styled.span`
+  width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 interface IDialogProps {
   isOpen: boolean;
   handleDialogOpen: (state: boolean) => void;
@@ -114,13 +122,34 @@ export default function Dialog({
   handleDialogOpen,
   productDetail,
 }: IDialogProps) {
+  const [quantity, setQuantity] = useState(0);
+
+  const handleQuantityAdd = () => {
+    setQuantity((prevQty) => prevQty + 1);
+  };
+
+  const handleQuantitySub = () => {
+    setQuantity((prevQty) => {
+      if (prevQty == 0) return prevQty;
+
+      return prevQty - 1;
+    });
+  };
+
   if (!isOpen) return null;
 
   return (
     <>
       <Overlay />
       <DialogContainer>
-        <CloseButton onClick={() => handleDialogOpen(false)}>X</CloseButton>
+        <CloseButton
+          onClick={() => {
+            handleDialogOpen(false);
+            setQuantity(0);
+          }}
+        >
+          X
+        </CloseButton>
         <DialogContent>
           <DialogImage src={productDetail?.image} />
           <DialogDescription>
@@ -129,9 +158,9 @@ export default function Dialog({
             <Price>${productDetail?.price}</Price>
             <CtaWrapper>
               <QuantityWrapper>
-                <QuantityBtn>-</QuantityBtn>
-                10
-                <QuantityBtn>+</QuantityBtn>
+                <QuantityBtn onClick={handleQuantitySub}>-</QuantityBtn>
+                <QuantityAmount>{quantity}</QuantityAmount>
+                <QuantityBtn onClick={handleQuantityAdd}>+</QuantityBtn>
               </QuantityWrapper>
 
               <Button>Add to Cart</Button>

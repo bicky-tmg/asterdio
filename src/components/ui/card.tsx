@@ -46,7 +46,7 @@ const Title = styled.h3`
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const Price = styled.div`
