@@ -5,9 +5,13 @@ const HeroSectionWrapper = styled.section`
   position: relative;
   overflow: hidden;
   padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
   margin-top: 0;
   margin-bottom: 0;
+
+  @media (min-width: 768px) {
+    padding-bottom: 4rem;
+  }
 
   @media (min-width: 1024px) {
     margin-top: 3.5rem;

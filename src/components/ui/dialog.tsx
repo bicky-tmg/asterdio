@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button, { ButtonWrapper } from "./button";
 import { IProduct } from "../../types/product";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Overlay = styled.div`
   position: fixed;
@@ -20,7 +20,7 @@ const DialogContainer = styled.div`
   background-color: white;
   border-radius: 8px;
   padding: 1.5rem;
-  max-width: 40rem;
+  max-width: 22rem;
   width: 100%;
   position: fixed;
   left: 50%;
@@ -29,6 +29,10 @@ const DialogContainer = styled.div`
   z-index: 50;
   box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  @media (min-width: 768px) {
+    max-width: 40rem;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -52,13 +56,22 @@ const DialogImage = styled.img.attrs((props) => ({
   border-radius: 3px;
   object-fit: contain;
   object-position: center;
-  height: 350px;
+  height: 200px;
+
+  @media (min-width: 768px) {
+    height: 350px;
+  }
 `;
 
 const DialogContent = styled.div`
   display: flex;
   gap: 2rem;
+  flex-direction: column;
   align-items: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const DialogDescription = styled.div`
@@ -67,16 +80,26 @@ const DialogDescription = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  line-height: 1.875rem;
+  line-height: 1.5rem;
   margin-bottom: 0.5rem;
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
 `;
 
 const Description = styled.p`
   font-size: 0.875rem;
-  line-height: 1.25rem;
-  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+
+  @media (min-width: 768px) {
+    line-height: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
 `;
 
 const Price = styled.div`
@@ -88,7 +111,11 @@ const Price = styled.div`
 const CtaWrapper = styled.div`
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
+
+  @media (min-width: 768px) {
+    margin-top: 1.5rem;
+  }
 `;
 
 const QuantityWrapper = styled.div`
@@ -123,6 +150,18 @@ export default function Dialog({
   productDetail,
 }: IDialogProps) {
   const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   const handleQuantityAdd = () => {
     setQuantity((prevQty) => prevQty + 1);
