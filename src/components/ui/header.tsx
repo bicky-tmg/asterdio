@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import { commonStyles as container } from "../styles/container";
 import { Logo } from "../../assets/Logo";
+import { ButtonWrapper } from "./button";
+import Heart from "../../assets/Heart";
+import { useFavoriteStore } from "../../store/useFavoriteStore";
 
 const HeaderComp = styled.header`
   position: sticky;
   top: 0;
   z-index: 50;
   width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #e2e8f0;
 `;
 
 const NavWrapper = styled.nav`
@@ -23,13 +28,38 @@ const LogoWrapper = styled.div`
   height: 2rem;
 `;
 
+const NavList = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FavoriteItem = styled(ButtonWrapper)`
+  background-color: inherit;
+  border: 1px solid #e2e8f0;
+  color: inherit;
+  padding: 4px 8px;
+`;
+
 export default function Header() {
+  const { favoriteProducts } = useFavoriteStore();
   return (
     <HeaderComp>
       <NavWrapper>
         <LogoWrapper>
           <Logo width="100%" height="100%" />
         </LogoWrapper>
+        <NavList>
+          <FavoriteItem>
+            <Heart
+              fill={favoriteProducts.length > 0 ? "#e11d48" : "none"}
+              strokeWidth={favoriteProducts.length > 0 ? 0 : 2}
+              width={20}
+              height={20}
+            />
+          </FavoriteItem>
+        </NavList>
       </NavWrapper>
     </HeaderComp>
   );
