@@ -27,8 +27,11 @@ const GridContainer = styled.div`
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [products, setProducts] = useState<Products | null>(null);
+  const [products, setProducts] = useState<Products>([]);
   const productDetailRef = useRef<IProduct | null>(null);
+  const featuredProducts = products?.filter(
+    (product) => product?.rating?.rate > 4.6
+  );
 
   useEffect(() => {
     const getProducts = async () => {
@@ -60,10 +63,28 @@ function App() {
         handleDialogOpen={handleDialogOpen}
         productDetail={productDetailRef.current}
       />
+      <SectionTitle>Featured Products</SectionTitle>
+      <GridContainer>
+        {featuredProducts?.map((product) => (
+          <Card
+            key={product.id}
+            id={product.id}
+            imgSrc={product.image}
+            title={product.title}
+            price={product.price}
+            handleDialogOpen={() => {
+              productDetailRef.current = product;
+              handleDialogOpen(true);
+            }}
+          />
+        ))}
+      </GridContainer>
       <SectionTitle>All Products</SectionTitle>
       <GridContainer>
         {products?.map((product) => (
           <Card
+            key={product.id}
+            id={product.id}
             imgSrc={product.image}
             title={product.title}
             price={product.price}
