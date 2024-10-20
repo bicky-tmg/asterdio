@@ -6,6 +6,7 @@ import { SectionTitle } from "./components/styles/sectionTitle";
 import Dialog from "./components/ui/dialog";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IProduct, Products } from "./types/product";
+import Hero from "./components/ui/hero";
 
 const GridContainer = styled.div`
   display: grid;
@@ -63,6 +64,7 @@ function App() {
         handleDialogOpen={handleDialogOpen}
         productDetail={productDetailRef.current}
       />
+      <Hero />
       <SectionTitle>Featured Products</SectionTitle>
       <GridContainer>
         {featuredProducts?.map((product) => (
