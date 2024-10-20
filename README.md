@@ -9,14 +9,15 @@ This is a simple eCommerce website built with **React** and **Vite**. It has lis
 - View favorite products in navbar with a simple scroll able dropdown
 - Responsive design for mobile and desktop
 - View details related to each product in a modal
-- Mock API used is FakeStoreAPI from [text](https://fakestoreapi.com/products)
+- Mock API used is [FakeStoreAPI](https://fakestoreapi.com/products)
 
 ## Technologies Used
 
 - **React**: Frontend library for building user interfaces
 - **Vite**: Build tool for fast development
 - **TypeScript**
-- **StyledComponents**
+- **Styled Components**
+- **Zustand**
 
 ## Installation
 
@@ -25,7 +26,7 @@ To run this project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone [text](https://github.com/bicky-tmg/asterdio.git)
+   git clone https://github.com/bicky-tmg/asterdio.git
    cd asterdio
    ```
 
